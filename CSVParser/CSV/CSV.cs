@@ -13,12 +13,12 @@ namespace CSVParser.CSV
         public CarModel[] Read(string path)
         {
             using var reader = new StreamReader(path);
-            reader.ReadLine();
             using var csv = new CsvReader(reader);
             csv.Configuration.RegisterClassMap<CarMap>();
             csv.Configuration.Delimiter = ",";
-            csv.Configuration.HasHeaderRecord = false;
+            csv.Configuration.HasHeaderRecord = true;
             var result = csv.GetRecords<CarModel>().ToArray();
+
             return result;
         }
     }

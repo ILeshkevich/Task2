@@ -1,13 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
-using System.IO;
-using System.Linq;
 using CSVParser.Database;
-using CSVParser.Models;
-using Dapper;
 
 namespace CSVParser
 {
@@ -15,15 +7,19 @@ namespace CSVParser
     {
         private static string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Cars;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         private static string path = @"D:\Task2\CSV\CSVParser\bin\Debug\netcoreapp3.0\Cars.csv";
+
         private static void Main(string[] args)
         {
+            Inserter inserter;
             while (true)
             {
                 Console.Clear();
                 Console.WriteLine("1. Create table.\n" +
                     "2. Delete table.\n" +
-                    "3. Read File to Database.\n" +
-                    "4. Create View\n" +
+                    "3. Slow read file to Database(~24 sec).\n" +
+                    "4. Multiple row read file to Database(~0.24 sec)\n" +
+                    "5. Bulk insert\n" +
+                    "6. Create View\n" +
                     "0. Exit.");
                 switch (Console.ReadLine())
                 {
@@ -35,9 +31,18 @@ namespace CSVParser
                         new DbWorker(connectionString).DeleteTable();
                         break;
                     case "3":
-                        new DbWorker(connectionString).Insert(new CSV.CSV().Read(path));
+                        inserter = new SingleRowInsert(connectionString);
+                        inserter.Insert(new CSV.CSV().Read(path));
                         break;
                     case "4":
+                        inserter = new MultipleRowsInsert(connectionString);
+                        inserter.Insert(new CSV.CSV().Read(path));
+                        break;
+                    case "5":
+                        inserter = new BulkInsert(connectionString, path);
+                        inserter.Insert(new CSV.CSV().Read(path));
+                        break;
+                    case "6":
                         new DbWorker(connectionString).CreateView();
                         break;
                 }

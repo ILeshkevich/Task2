@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -38,52 +39,43 @@ namespace CSVParser.Database
             return db.Query<CarModel>("SELECT * FROM Data").ToList();
         }
 
-        // Freckly slow method
-        public void Insert(CarModel[] cars)
-        {
-            using IDbConnection db = new SqlConnection(connectionString);
-            foreach (var car in cars)
-            {
-                db.Query<CarModel>("INSERT INTO Data (Date, Make, Model, Quantity) VALUES(@Date, @Make, @Model, @Quantity);", car);
-            }
-        }
-
         public void CreateView()
         {
             using IDbConnection db = new SqlConnection(connectionString);
 
             db.Query(@" DROP VIEW IF EXISTS CarQuantitiesPerMonthes;
-                        EXECUTE('create View CarQuantitiesPerMonthes as
+                        EXECUTE('create View [dbo].[CarQuantitiesPerMonthes] as
                         SELECT [Make],
-                        [2016-02-28] as [feb 2016],
-                        [2016-03-28] as [mar 2016],
-                        [2016-04-28] as [apr 2016],
-                        [2016-05-28] as [may 2016],
-                        [2016-06-28] as [jun 2016],
-                        [2016-07-28] as [jul 2016],
-                        [2016-08-28] as [aug 2016],
-                        [2016-09-28] as [sep 2016],
-                        [2016-10-28] as [oct 2016],
-                        [2016-11-28] as [nov 2016],
-                        [2016-12-28] as [dec 2016],
-                        [2017-01-28] as [jan 2017]
-                        FROM (select [Date], [Quantity], [Make] from Data) as p
+                        [2016-2] as [feb 2016],
+                        [2016-3] as [mar 2016],
+                        [2016-4] as [apr 2016],
+                        [2016-5] as [may 2016],
+                        [2016-6] as [jun 2016],
+                        [2016-7] as [jul 2016],
+                        [2016-8] as [aug 2016],
+                        [2016-9] as [sep 2016],
+                        [2016-10] as [oct 2016],
+                        [2016-11] as [nov 2016],
+                        [2016-12] as [dec 2016],
+                        [2017-1] as [jan 2017]
+                        FROM (select cast(year([Date]) as nvarchar(10)) + '-' + cast(month(date) as nvarchar(10)) as date, [Quantity], [Make] from Data) as p
                         pivot
                         (sum([Quantity])
                         for [Date]
-                        IN ([2016-02-28], 
-	                        [2016-03-28],
-	                        [2016-04-28],
-	                        [2016-05-28],
-	                        [2016-06-28],
-	                        [2016-07-28],
-	                        [2016-08-28],
-	                        [2016-09-28],
-	                        [2016-10-28],
-	                        [2016-11-28],
-	                        [2016-12-28],
-	                        [2017-01-28])
-                        ) as piv;')");
+                        IN ([2016-2], 
+	                        [2016-3],
+	                        [2016-4],
+	                        [2016-5],
+	                        [2016-6],
+	                        [2016-7],
+	                        [2016-8],
+	                        [2016-9],
+	                        [2016-10],
+	                        [2016-11],
+	                        [2016-12],
+	                        [2017-1])
+                        ) as piv;
+')");
         }
 
         public void DeleteTable()
