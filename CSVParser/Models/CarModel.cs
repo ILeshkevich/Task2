@@ -7,14 +7,16 @@ namespace CSVParser.Models
 {
     internal class CarModel
     {
-        public int Id { get; set; }
-
+        [Index(0)]
         public DateTime Date { get; set; }
 
+        [Index(1)]
         public string Make { get; set; }
 
+        [Index(2)]
         public string Model { get; set; }
 
-        public string Quantity { get; set; }
+        [Index(3)]
+        public int Quantity { get; set; }
     }
 }

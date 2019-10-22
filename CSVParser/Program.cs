@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using CSVParser.Database;
+using CSVParser.Models;
 using Dapper;
 
 namespace CSVParser
@@ -14,7 +15,6 @@ namespace CSVParser
     {
         private static string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Cars;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         private static string path = @"D:\Task2\CSV\CSVParser\bin\Debug\netcoreapp3.0\Cars.csv";
-
         private static void Main(string[] args)
         {
             while (true)

@@ -5,14 +5,14 @@ using CsvHelper.Configuration;
 
 namespace CSVParser.Models
 {
-    internal class CarMap : ClassMap<CarModel>
+    internal sealed class CarMap : ClassMap<CarModel>
     {
         public CarMap()
         {
-            Map(m => m.Date).TypeConverterOption.Format("yyyy/MM/dd").Name("Date");
-            Map(m => m.Make).Name("Make");
-            Map(m => m.Model).Name("Model");
-            Map(m => m.Quantity).Name("Quantity");
+            Map(m => m.Date).Index(0);
+            Map(m => m.Make).Index(1);
+            Map(m => m.Model).Index(2);
+            Map(m => m.Quantity).Index(3);
         }
     }
 }

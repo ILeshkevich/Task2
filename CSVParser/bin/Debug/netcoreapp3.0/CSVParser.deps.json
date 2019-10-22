@@ -10,7 +10,7 @@
         "dependencies": {
           "CsvHelper": "12.1.2",
           "Dapper": "2.0.30",
-          "StyleCop.Analyzers": "1.1.118",
+          "StyleCop.Analyzers": "1.2.0-beta.66",
           "System.Data.SqlClient": "4.7.0"
         },
         "runtime": {
@@ -82,7 +82,12 @@
           }
         }
       },
-      "StyleCop.Analyzers/1.1.118": {},
+      "StyleCop.Analyzers/1.2.0-beta.66": {
+        "dependencies": {
+          "StyleCop.Analyzers.Unstable": "1.2.0.66"
+        }
+      },
+      "StyleCop.Analyzers.Unstable/1.2.0.66": {},
       "System.Data.SqlClient/4.7.0": {
         "dependencies": {
           "Microsoft.Win32.Registry": "4.6.0",
@@ -190,12 +195,19 @@
       "path": "runtime.win-x86.runtime.native.system.data.sqlclient.sni/4.4.0",
       "hashPath": "runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512"
     },
-    "StyleCop.Analyzers/1.1.118": {
+    "StyleCop.Analyzers/1.2.0-beta.66": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Onx6ovGSqXSK07n/0eM3ZusiNdB6cIlJdabQhWGgJp3Vooy9AaLS/tigeybOJAobqbtggTamoWndz72JscZBvw==",
-      "path": "stylecop.analyzers/1.1.118",
-      "hashPath": "stylecop.analyzers.1.1.118.nupkg.sha512"
+      "sha512": "sha512-56BLleVxQtFMZEe9CI0H6uuBDsOXz4r1S3A/3ORO3n8voVW1jr7EFFSpExWGJT+VZgs5sSe8zdOxJEsg6MIWww==",
+      "path": "stylecop.analyzers/1.2.0-beta.66",
+      "hashPath": "stylecop.analyzers.1.2.0-beta.66.nupkg.sha512"
+    },
+    "StyleCop.Analyzers.Unstable/1.2.0.66": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-tn26fZSw90bnUhYQOZvS6egRGUU9s+/RnxiGiXlimB44hzzARErdWyvUwO9R+1HcmEY1m9SewQDeT4HYM4oDtw==",
+      "path": "stylecop.analyzers.unstable/1.2.0.66",
+      "hashPath": "stylecop.analyzers.unstable.1.2.0.66.nupkg.sha512"
     },
     "System.Data.SqlClient/4.7.0": {
       "type": "package",

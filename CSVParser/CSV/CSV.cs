@@ -12,11 +12,14 @@ namespace CSVParser.CSV
     {
         public CarModel[] Read(string path)
         {
-            // Fix path to Stream reader after implement of File worker;
             using var reader = new StreamReader(path);
+            reader.ReadLine();
             using var csv = new CsvReader(reader);
             csv.Configuration.RegisterClassMap<CarMap>();
-            return csv.GetRecords<CarModel>().ToArray();
+            csv.Configuration.Delimiter = ",";
+            csv.Configuration.HasHeaderRecord = false;
+            var result = csv.GetRecords<CarModel>().ToArray();
+            return result;
         }
     }
 }

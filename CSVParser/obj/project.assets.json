@@ -103,7 +103,13 @@
           }
         }
       },
-      "StyleCop.Analyzers/1.1.118": {
+      "StyleCop.Analyzers/1.2.0-beta.66": {
+        "type": "package",
+        "dependencies": {
+          "StyleCop.Analyzers.Unstable": "1.2.0.66"
+        }
+      },
+      "StyleCop.Analyzers.Unstable/1.2.0.66": {
         "type": "package"
       },
       "System.Data.SqlClient/4.7.0": {
@@ -412,10 +418,23 @@
         "version.txt"
       ]
     },
-    "StyleCop.Analyzers/1.1.118": {
-      "sha512": "Onx6ovGSqXSK07n/0eM3ZusiNdB6cIlJdabQhWGgJp3Vooy9AaLS/tigeybOJAobqbtggTamoWndz72JscZBvw==",
+    "StyleCop.Analyzers/1.2.0-beta.66": {
+      "sha512": "56BLleVxQtFMZEe9CI0H6uuBDsOXz4r1S3A/3ORO3n8voVW1jr7EFFSpExWGJT+VZgs5sSe8zdOxJEsg6MIWww==",
       "type": "package",
-      "path": "stylecop.analyzers/1.1.118",
+      "path": "stylecop.analyzers/1.2.0-beta.66",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "THIRD-PARTY-NOTICES.txt",
+        "stylecop.analyzers.1.2.0-beta.66.nupkg.sha512",
+        "stylecop.analyzers.nuspec"
+      ]
+    },
+    "StyleCop.Analyzers.Unstable/1.2.0.66": {
+      "sha512": "tn26fZSw90bnUhYQOZvS6egRGUU9s+/RnxiGiXlimB44hzzARErdWyvUwO9R+1HcmEY1m9SewQDeT4HYM4oDtw==",
+      "type": "package",
+      "path": "stylecop.analyzers.unstable/1.2.0.66",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
@@ -431,8 +450,9 @@
         "analyzers/dotnet/cs/pl-PL/StyleCop.Analyzers.resources.dll",
         "analyzers/dotnet/cs/pt-BR/StyleCop.Analyzers.resources.dll",
         "analyzers/dotnet/cs/ru-RU/StyleCop.Analyzers.resources.dll",
-        "stylecop.analyzers.1.1.118.nupkg.sha512",
-        "stylecop.analyzers.nuspec",
+        "rulesets/StyleCopAnalyzersDefault.ruleset",
+        "stylecop.analyzers.unstable.1.2.0.66.nupkg.sha512",
+        "stylecop.analyzers.unstable.nuspec",
         "tools/install.ps1",
         "tools/uninstall.ps1"
       ]
@@ -749,7 +769,7 @@
     ".NETCoreApp,Version=v3.0": [
       "CsvHelper >= 12.1.2",
       "Dapper >= 2.0.30",
-      "StyleCop.Analyzers >= 1.1.118",
+      "StyleCop.Analyzers >= 1.2.0-beta.66",
       "System.Data.SqlClient >= 4.7.0"
     ]
   },
@@ -802,7 +822,7 @@
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
             "suppressParent": "All",
             "target": "Package",
-            "version": "[1.1.118, )"
+            "version": "[1.2.0-beta.66, )"
           },
           "System.Data.SqlClient": {
             "target": "Package",
@@ -818,7 +838,13 @@
           "net48"
         ],
         "assetTargetFallback": true,
-        "warn": true
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

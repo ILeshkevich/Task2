@@ -20,7 +20,9 @@ namespace CSVParser.Database
         {
             using IDbConnection db = new SqlConnection(connectionString);
 
-            db.Query(@"CREATE TABLE [dbo].[Data] (
+            db.Query(@"
+                       DROP TABLE IF EXISTS [Data] 
+                       CREATE TABLE [dbo].[Data] (
                        [Id]       INT        IDENTITY,
                        [Date]     DATE       NULL,
                        [Make]     NCHAR (20) NULL,
@@ -36,18 +38,22 @@ namespace CSVParser.Database
             return db.Query<CarModel>("SELECT * FROM Data").ToList();
         }
 
+        // Freckly slow method
         public void Insert(CarModel[] cars)
         {
             using IDbConnection db = new SqlConnection(connectionString);
-            db.Query<CarModel>("INSERT INTO Data (Date, Make, Model, Quantity) VALUES(@Date, @Make, @Model, @Quantity);", cars);
+            foreach (var car in cars)
+            {
+                db.Query<CarModel>("INSERT INTO Data (Date, Make, Model, Quantity) VALUES(@Date, @Make, @Model, @Quantity);", car);
+            }
         }
 
         public void CreateView()
         {
             using IDbConnection db = new SqlConnection(connectionString);
 
-            db.Query(@" 
-                        create View CarQuantitiesPerMonthes as
+            db.Query(@" DROP VIEW IF EXISTS CarQuantitiesPerMonthes;
+                        EXECUTE('create View CarQuantitiesPerMonthes as
                         SELECT [Make],
                         [2016-02-28] as [feb 2016],
                         [2016-03-28] as [mar 2016],
@@ -61,7 +67,7 @@ namespace CSVParser.Database
                         [2016-11-28] as [nov 2016],
                         [2016-12-28] as [dec 2016],
                         [2017-01-28] as [jan 2017]
-                        FROM (select [Date], [Quantity], [Make] from Cars) as p
+                        FROM (select [Date], [Quantity], [Make] from Data) as p
                         pivot
                         (sum([Quantity])
                         for [Date]
@@ -77,7 +83,7 @@ namespace CSVParser.Database
 	                        [2016-11-28],
 	                        [2016-12-28],
 	                        [2017-01-28])
-                        ) as piv;");
+                        ) as piv;')");
         }
 
         public void DeleteTable()
