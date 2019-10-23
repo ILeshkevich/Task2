@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Data;
+using System.Data.SqlClient;
 using CSVParser.Database;
+using Dapper;
 
 namespace CSVParser
 {
@@ -10,6 +13,8 @@ namespace CSVParser
 
         private static void Main(string[] args)
         {
+
+
             Inserter inserter;
             while (true)
             {
@@ -18,7 +23,7 @@ namespace CSVParser
                     "2. Delete table.\n" +
                     "3. Slow read file to Database(~24 sec).\n" +
                     "4. Multiple row read file to Database(~0.24 sec)\n" +
-                    "5. Bulk insert\n" +
+                    "5. Bulk insert(~0.042 sec)\n" +
                     "6. Create View\n" +
                     "0. Exit.");
                 switch (Console.ReadLine())
@@ -43,7 +48,7 @@ namespace CSVParser
                         inserter.Insert(new CSV.CSV().Read(path));
                         break;
                     case "6":
-                        new DbWorker(connectionString).CreateView();
+                        new DbWorker(connectionString).CreateView(24);
                         break;
                 }
             }

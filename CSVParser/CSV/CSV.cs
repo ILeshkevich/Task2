@@ -12,6 +12,8 @@ namespace CSVParser.CSV
     {
         public CarModel[] Read(string path)
         {
+            try
+            {
             using var reader = new StreamReader(path);
             using var csv = new CsvReader(reader);
             csv.Configuration.RegisterClassMap<CarMap>();
@@ -20,6 +22,15 @@ namespace CSVParser.CSV
             var result = csv.GetRecords<CarModel>().ToArray();
 
             return result;
+            }
+            catch (Exception e)
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.WriteLine(e.Message);
+                Console.ResetColor();
+            }
+
+            return new CarModel[0];
         }
     }
 }

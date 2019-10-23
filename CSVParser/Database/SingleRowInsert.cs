@@ -25,6 +25,8 @@ namespace CSVParser.Database
         // Freckly slow method
         public override void Insert(CarModel[] cars)
         {
+            try
+            {
             DateTime starttime = DateTime.Now;
             using IDbConnection db = new SqlConnection(connectionString);
             foreach (var car in cars)
@@ -35,6 +37,13 @@ namespace CSVParser.Database
             DateTime endtime = DateTime.Now;
             Console.WriteLine(endtime - starttime);
             Console.ReadKey();
+            }
+            catch (Exception e)
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.WriteLine(e.Message);
+                Console.ResetColor();
+            }
         }
     }
 }

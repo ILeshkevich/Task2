@@ -1,0 +1,19 @@
+﻿@model Site.Models.ViewModels.PeriodViewModel
+@{
+    ViewData["Title"] = "Select Period";
+}
+
+<form asp-action="Index" asp-controller="Home" method="post">
+    <div asp-validation-summary="All"></div>
+
+    <label asp-for="StartDate"></label>
+    <input class="form-control" type="date" asp-for="StartDate" />
+
+    <label asp-for="FinishDate"></label>
+    <input class="form-control" type="date" asp-for="FinishDate" />
+
+    <label asp-for="Format"></label>
+    <input class="form-control" asp-for="Format" />
+
+    <button class="btn btn-dark mt-3" type="submit">Sumbit</button>
+</form>

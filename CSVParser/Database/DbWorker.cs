@@ -6,9 +6,11 @@ using System.Linq;
 using CSVParser.Models;
 using Dapper;
 
+// db dwh - type star
+// reorganize dbo.data table to fact table with dims
 namespace CSVParser.Database
 {
-    internal class DbWorker
+    public class DbWorker
     {
         private readonly string connectionString;
 
@@ -19,31 +21,38 @@ namespace CSVParser.Database
 
         public void CreateTable()
         {
-            using IDbConnection db = new SqlConnection(connectionString);
+            try
+            {
+                using IDbConnection db = new SqlConnection(connectionString);
 
-            db.Query(@"
-                       DROP TABLE IF EXISTS [Data] 
-                       CREATE TABLE [dbo].[Data] (
-                       [Id]       INT        IDENTITY,
-                       [Date]     DATE       NULL,
-                       [Make]     NCHAR (20) NULL,
-                       [Model]    NCHAR (50) NULL,
-                       [Quantity] INT        NULL,
-                       PRIMARY KEY CLUSTERED ([Id] ASC)
-                    );");
+                db.Query(Query.CreateTable());
+            }
+            catch (Exception e)
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.WriteLine(e.Message);
+                Console.ResetColor();
+            }
         }
 
-        public List<CarModel> SelectAll()
+        public DataTable Select(DateTime startDate, DateTime finistDate, string format)
         {
-            using IDbConnection db = new SqlConnection(connectionString);
-            return db.Query<CarModel>("SELECT * FROM Data").ToList();
+            using SqlConnection db = new SqlConnection(connectionString);
+            string a = Query.SelectPerMonthes(startDate, finistDate, format);
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = new SqlCommand(a, db);
+            DataTable dataSet = new DataTable();
+            adapter.Fill(dataSet);
+            return dataSet;
         }
 
-        public void CreateView()
+        public void CreateView(int num)
         {
-            using IDbConnection db = new SqlConnection(connectionString);
+            try
+            {
+                using IDbConnection db = new SqlConnection(connectionString);
 
-            db.Query(@" DROP VIEW IF EXISTS CarQuantitiesPerMonthes;
+                db.Query(@" DROP VIEW IF EXISTS CarQuantitiesPerMonthes;
                         EXECUTE('create View [dbo].[CarQuantitiesPerMonthes] as
                         SELECT [Make],
                         [2016-2] as [feb 2016],
@@ -75,13 +84,29 @@ namespace CSVParser.Database
 	                        [2016-12],
 	                        [2017-1])
                         ) as piv;
-')");
+                       ')");
+            }
+            catch (Exception e)
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.WriteLine(e.Message);
+                Console.ResetColor();
+            }
         }
 
         public void DeleteTable()
         {
-            using IDbConnection db = new SqlConnection(connectionString);
-            db.Query(@"DROP TABLE [dbo].[Data];");
+            try
+            {
+                using IDbConnection db = new SqlConnection(connectionString);
+                db.Query(Query.DeleteTable());
+            }
+            catch (Exception e)
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.WriteLine(e.Message);
+                Console.ResetColor();
+            }
         }
     }
 }

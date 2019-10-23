@@ -22,6 +22,8 @@ namespace CSVParser.Database
         // Todo: 6. Add error handling - notify user if exception occured
         public override void Insert(CarModel[] cars)
         {
+            try
+            {
             DateTime starttime = DateTime.Now;
             using IDbConnection db = new SqlConnection(connectionString);
             StringBuilder queryString = new StringBuilder("INSERT INTO Data(Date, Make, Model, Quantity) VALUES ", 60000);
@@ -49,6 +51,13 @@ namespace CSVParser.Database
             DateTime endtime = DateTime.Now;
             Console.WriteLine(endtime - starttime);
             Console.ReadKey();
+            }
+            catch (Exception e)
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.WriteLine(e.Message);
+                Console.ResetColor();
+            }
         }
     }
 }

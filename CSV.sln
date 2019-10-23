@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		..\..\task1\GithubFiles\default.ruleset = ..\..\task1\GithubFiles\default.ruleset
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Site", "Site\Site.csproj", "{D4EB8315-C1F6-45EF-BB4C-15CC6B62745B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{7FA6DB81-0E9B-4F46-9FD3-F7858460A413}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FA6DB81-0E9B-4F46-9FD3-F7858460A413}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FA6DB81-0E9B-4F46-9FD3-F7858460A413}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4EB8315-C1F6-45EF-BB4C-15CC6B62745B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4EB8315-C1F6-45EF-BB4C-15CC6B62745B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4EB8315-C1F6-45EF-BB4C-15CC6B62745B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4EB8315-C1F6-45EF-BB4C-15CC6B62745B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
