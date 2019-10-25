@@ -1,11 +1,11 @@
-﻿using CsvHelper;
-using CSVParser.Models;
-using System.IO;
+﻿using System;
+using System.Data;
 using System.Data.Sql;
 using System.Data.SqlClient;
-using System.Data;
+using System.IO;
+using CsvHelper;
+using CSVParser.Models;
 using Dapper;
-using System;
 
 namespace CSVParser.Database
 {

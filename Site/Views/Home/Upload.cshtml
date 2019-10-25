@@ -1,0 +1,17 @@
+﻿@model Site.Models.ViewModels.FileViewModel
+@{
+    ViewData["Title"] = "Upload";
+}
+
+<form asp-action="Upload" asp-controller="Home" enctype="multipart/form-data" method="post">
+    <div asp-validation-summary="All"></div>
+    <div class="input-group col-md-5">
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" asp-for="File">
+            <label class="custom-file-label" asp-for="File">Choose file</label>
+        </div>
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="submit">Upload</button>
+        </div>
+    </div>
+</form>

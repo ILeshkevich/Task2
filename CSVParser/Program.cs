@@ -1,7 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using CsvHelper.Configuration.Attributes;
 using CSVParser.Database;
+using CSVParser.Models;
 using Dapper;
 
 namespace CSVParser
@@ -13,8 +18,6 @@ namespace CSVParser
 
         private static void Main(string[] args)
         {
-
-
             Inserter inserter;
             while (true)
             {
@@ -25,6 +28,7 @@ namespace CSVParser
                     "4. Multiple row read file to Database(~0.24 sec)\n" +
                     "5. Bulk insert(~0.042 sec)\n" +
                     "6. Create View\n" +
+                    "7. Insert to table..." +
                     "0. Exit.");
                 switch (Console.ReadLine())
                 {
@@ -49,6 +53,9 @@ namespace CSVParser
                         break;
                     case "6":
                         new DbWorker(connectionString).CreateView(24);
+                        break;
+                    case "7":
+                        Query.Star();
                         break;
                 }
             }

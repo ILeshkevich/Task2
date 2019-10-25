@@ -24,33 +24,33 @@ namespace CSVParser.Database
         {
             try
             {
-            DateTime starttime = DateTime.Now;
-            using IDbConnection db = new SqlConnection(connectionString);
-            StringBuilder queryString = new StringBuilder("INSERT INTO Data(Date, Make, Model, Quantity) VALUES ", 60000);
-            if (cars.Length != 0)
-            {
-                for (int i = 0, n = 0; i < cars.Length; i++, n++)
+                DateTime starttime = DateTime.Now;
+                using IDbConnection db = new SqlConnection(connectionString);
+                StringBuilder queryString = new StringBuilder("INSERT INTO Data(Date, Make, Model, Quantity) VALUES ", 60000);
+                if (cars.Length != 0)
                 {
-                    queryString.Append($"('{cars[i].Date.ToString("yyyy-MM-dd")}', '{cars[i].Make.Trim().Replace('\'', ' ')}', '{cars[i].Model.Trim().Replace('\'', ' ')}', '{cars[i].Quantity}'),\n");
-                    if (n == 999)
+                    for (int i = 0, n = 0; i < cars.Length; i++, n++)
                     {
-                        queryString.Remove(queryString.Length - 2, 1);
-                        queryString.Append(";");
-                        db.Query(queryString.ToString());
-                        queryString.Remove(0, queryString.Length);
-                        queryString.Append("INSERT INTO Data(Date, Make, Model, Quantity) VALUES ");
-                        n = -1;
+                        queryString.Append($"('{cars[i].Date.ToString("yyyy-MM-dd")}', '{cars[i].Make.Trim().Replace('\'', ' ')}', '{cars[i].Model.Trim().Replace('\'', ' ')}', '{cars[i].Quantity}'),\n");
+                        if (n == 999)
+                        {
+                            queryString.Remove(queryString.Length - 2, 1);
+                            queryString.Append(";");
+                            db.Query(queryString.ToString());
+                            queryString.Remove(0, queryString.Length);
+                            queryString.Append("INSERT INTO Data(Date, Make, Model, Quantity) VALUES ");
+                            n = -1;
+                        }
                     }
+
+                    queryString.Remove(queryString.Length - 2, 2);
+                    queryString.Append(";");
+                    db.Query(queryString.ToString());
                 }
 
-                queryString.Remove(queryString.Length - 2, 2);
-                queryString.Append(";");
-                db.Query(queryString.ToString());
-            }
-
-            DateTime endtime = DateTime.Now;
-            Console.WriteLine(endtime - starttime);
-            Console.ReadKey();
+                DateTime endtime = DateTime.Now;
+                Console.WriteLine(endtime - starttime);
+                Console.ReadKey();
             }
             catch (Exception e)
             {

@@ -35,10 +35,10 @@ namespace CSVParser.Database
             }
         }
 
-        public DataTable Select(DateTime startDate, DateTime finistDate, string format)
+        public DataTable Select(DateTime startDate, DateTime finistDate, string format, string type)
         {
             using SqlConnection db = new SqlConnection(connectionString);
-            string a = Query.SelectPerMonthes(startDate, finistDate, format);
+            string a = Query.SelectPerMonthes(startDate, finistDate, format, type);
             SqlDataAdapter adapter = new SqlDataAdapter();
             adapter.SelectCommand = new SqlCommand(a, db);
             DataTable dataSet = new DataTable();
@@ -92,6 +92,63 @@ namespace CSVParser.Database
                 Console.WriteLine(e.Message);
                 Console.ResetColor();
             }
+        }
+
+        public bool ToStar()
+        {
+            try
+            {
+                using var db = new SqlConnection(connectionString);
+                db.Query(Query.Star());
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.WriteLine(e.Message);
+                Console.ResetColor();
+            }
+
+            return false;
+        }
+
+        public bool Insert(string path)
+        {
+            try
+            {
+                using var db = new SqlConnection(connectionString);
+                db.Query(@" DROP TABLE IF EXISTS [temptable]
+                        create table [temptable]
+                        ([Date] [date] NULL,
+	                     [Make] [nchar](20) NULL,
+	                     [Model] [nchar](50) NULL,
+	                     [Quantity] [int] NULL)
+
+                        BULK INSERT [temptable]" +
+                        $"From '{path}'" +
+                        @"with
+                        (
+                        rowterminator = '\n',
+                        fieldterminator = ',',
+                        firstrow = 2
+                        )
+
+                        insert into Data
+                        select * 
+                        From [temptable]
+                        go
+
+                        DROP TABLE IF EXISTS [temptable]");
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.WriteLine(e.Message);
+                Console.ResetColor();
+            }
+
+            return false;
         }
 
         public void DeleteTable()

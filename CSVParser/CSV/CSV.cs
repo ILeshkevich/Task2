@@ -14,14 +14,14 @@ namespace CSVParser.CSV
         {
             try
             {
-            using var reader = new StreamReader(path);
-            using var csv = new CsvReader(reader);
-            csv.Configuration.RegisterClassMap<CarMap>();
-            csv.Configuration.Delimiter = ",";
-            csv.Configuration.HasHeaderRecord = true;
-            var result = csv.GetRecords<CarModel>().ToArray();
+                using var reader = new StreamReader(path);
+                using var csv = new CsvReader(reader);
+                csv.Configuration.RegisterClassMap<CarMap>();
+                csv.Configuration.Delimiter = ",";
+                csv.Configuration.HasHeaderRecord = true;
+                var result = csv.GetRecords<CarModel>().ToArray();
 
-            return result;
+                return result;
             }
             catch (Exception e)
             {

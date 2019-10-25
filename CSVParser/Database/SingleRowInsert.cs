@@ -27,16 +27,16 @@ namespace CSVParser.Database
         {
             try
             {
-            DateTime starttime = DateTime.Now;
-            using IDbConnection db = new SqlConnection(connectionString);
-            foreach (var car in cars)
-            {
-                db.Query<CarModel>("INSERT INTO Data (Date, Make, Model, Quantity) VALUES(@Date, @Make, @Model, @Quantity);", car);
-            }
+                DateTime starttime = DateTime.Now;
+                using IDbConnection db = new SqlConnection(connectionString);
+                foreach (var car in cars)
+                {
+                    db.Query<CarModel>("INSERT INTO Data (Date, Make, Model, Quantity) VALUES(@Date, @Make, @Model, @Quantity);", car);
+                }
 
-            DateTime endtime = DateTime.Now;
-            Console.WriteLine(endtime - starttime);
-            Console.ReadKey();
+                DateTime endtime = DateTime.Now;
+                Console.WriteLine(endtime - starttime);
+                Console.ReadKey();
             }
             catch (Exception e)
             {
